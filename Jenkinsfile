@@ -12,6 +12,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
+                sh "docker image rm ${IMAGE_NAME} . || true"
                 sh "docker build -t ${IMAGE_NAME} ."
             }
         }
