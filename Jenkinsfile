@@ -69,13 +69,9 @@ pipeline {
             script {
                 if (TRIVY_EXIT_CODE == 1) {
                     echo "Pipeline failed due to detected critical vulnerabilities."
-                    // Send an email notification on Trivy failure only
-                    emailext(
-                        subject: "Deployment Blocked: Critical Vulnerability Detected in Docker Image",
-                        body: "The deployment pipeline was halted due to critical vulnerabilities found in the Docker image. Please review the Trivy scan report.",
-                        to: "rahulsood707@gmail.com",
-                        attachLog: true
-                    )
+                    emailext body: 'The deployment pipeline was halted due to critical vulnerabilities found in the Docker image. Please review the Trivy scan report.',
+                             subject: 'Deployment Blocked: Critical Vulnerability Detected in Docker Image',
+                             to: 'rahulsood707@gmail.com'
                 }
             }
         }
