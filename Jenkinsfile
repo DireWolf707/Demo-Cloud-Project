@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "demo-cloud-app:latest"
+        IMAGE_NAME = "${JOB_NAME}:latest"
         CONTAINER_PORT = "8000"
         HOST_PORT = "1000"
         TRIVY_EXIT_CODE = 0
