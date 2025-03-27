@@ -23,6 +23,8 @@ pipeline {
                     // Run Trivy inside a Docker container and generate JSON output
                     sh """
                         docker run --rm \
+                        -v trivy_data:/root/.cache/ \
+                        -v /var/run/docker.sock:/var/run/docker.sock \
                         aquasec/trivy image ${IMAGE_NAME}
                     """
 
