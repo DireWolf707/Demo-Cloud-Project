@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Run Trivy Scan from Docker') {
+        stage('Trivy Scan') {
             steps {
                 script {
                     echo 'Scanning Docker image for vulnerabilities using Trivy (Docker)...'
