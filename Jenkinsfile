@@ -12,7 +12,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
-                sh "docker rm -f ${JOB_NAME} || true"
                 sh "docker image rm -f ${IMAGE_NAME} . || true"
                 sh "docker build -t ${IMAGE_NAME} ."
             }
@@ -41,16 +40,16 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                script {
-                    sh """
-                        docker run \
-                            -d \
-                            --restart always \
-                            -p ${HOST_PORT}:${CONTAINER_PORT} \
-                            --name ${JOB_NAME} \
-                            ${IMAGE_NAME}
-                    """
-                }
+                sh "docker rm -f ${JOB_NAME} || true"
+
+                sh """
+                    docker run \
+                        -d \
+                        --restart always \
+                        -p ${HOST_PORT}:${CONTAINER_PORT} \
+                        --name ${JOB_NAME} \
+                        ${IMAGE_NAME}
+                """
             }
         }
 
